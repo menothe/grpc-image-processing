@@ -1,6 +1,6 @@
 # What it is
 
-This is a lightweight image processing tool that converts an image to grayscale.
+This is a lightweight image processing tool that converts a JPEG image to grayscale.
 It leverages gRPC and worker pools for efficient and expedient processing.
 
 ![[Example]](example.png)
