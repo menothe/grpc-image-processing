@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+option go_package = "./pb"; // Replace with your package path
+
+// service interface
+service ImageProcessor {
+  // RPC method to convert an image to grayscale
+  rpc ConvertImage(ConvertImageRequest) returns (ConvertImageResponse) {}
+}
+
+// request message
+message ConvertImageRequest {
+  bytes image_data = 1;
+}
+
+// response message
+message ConvertImageResponse {
+  bytes processed_data = 1;
+}
