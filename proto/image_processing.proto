@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option go_package = "./pb"; // Replace with your package path
+option go_package = "./pb";
 
 // service interface
 service ImageProcessor {
