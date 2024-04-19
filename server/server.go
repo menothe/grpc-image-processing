@@ -15,7 +15,6 @@ type ImageProcessorServer interface {
 
 // Server implementation
 type Server struct {
-	WorkerPool chan func()
 	pb.UnsafeImageProcessorServer
 }
 
@@ -27,7 +26,7 @@ func (s *Server) ConvertImage(ctx context.Context, req *pb.ConvertImageRequest) 
 	}
 
 	// Convert to grayscale using a worker
-	processedImg := convertImageToGrayscale(img, s.WorkerPool)
+	processedImg := convertImageToGrayscale(img)
 
 	// Marshal processed image data back to byte slice
 	processedData, err := encodeImage(processedImg)
@@ -38,22 +37,6 @@ func (s *Server) ConvertImage(ctx context.Context, req *pb.ConvertImageRequest) 
 	return &pb.ConvertImageResponse{ProcessedData: processedData}, nil
 }
 
-func NewServer(poolSize int) *Server {
-	s := &Server{
-		WorkerPool: make(chan func(), poolSize),
-	}
-	// Pre-populate the worker pool with worker functions
-	for i := 0; i < poolSize; i++ {
-		worker := func() {
-			for {
-				task, ok := <-s.WorkerPool
-				if !ok {
-					break // Worker pool is closing
-				}
-				task()
-			}
-		}
-		go worker()
-	}
-	return s
+func NewServer() *Server {
+	return &Server{}
 }

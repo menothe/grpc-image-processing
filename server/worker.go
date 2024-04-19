@@ -6,7 +6,7 @@ import (
 )
 
 // converts image to grayscale
-func convertImageToGrayscale(img image.Image, workerPool chan func()) image.Image {
+func convertImageToGrayscale(img image.Image) image.Image {
 
 	// Convert each pixel to grayscale
 	bounds := img.Bounds()
